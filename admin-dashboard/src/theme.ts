@@ -1,16 +1,10 @@
-import { createContext, useMemo, useState } from "react";
-import { TopBar } from "./pages/global/top-bar";
-import {
-  CssBaseline,
-  PaletteMode,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
+import { createContext, useState, useMemo } from "react";
+import { Theme, createTheme } from "@mui/material/styles";
+import { PaletteMode } from "@mui/material";
 
 export const tokens = (mode: PaletteMode) => ({
-  palette: {
-    mode,
-    ...(mode === "dark"
+  ...createContext(
+    mode === "dark"
       ? {
           grey: {
             100: "#e0e0e0",
@@ -124,13 +118,91 @@ export const tokens = (mode: PaletteMode) => ({
             800: "#c3c6fd",
             900: "#e1e2fe",
           },
-        }),
-  },
+        }
+  ),
 });
 
-export const ColorModeContext = createContext<any | null>(null);
+// mui theme settings
+export const themeSettings = (mode: PaletteMode) => {
+  const colors = tokens(mode);
+  return {
+    palette: {
+      mode: mode,
+      ...(mode === "dark"
+        ? {
+            // palette values for dark mode
+            primary: {
+              main: colors.primary[500],
+            },
+            secondary: {
+              main: colors.greenAccent[500],
+            },
+            neutral: {
+              dark: colors.grey[700],
+              main: colors.grey[500],
+              light: colors.grey[100],
+            },
+            background: {
+              default: colors.primary[500],
+            },
+          }
+        : {
+            // palette values for light mode
+            primary: {
+              main: colors.primary[100],
+            },
+            secondary: {
+              main: colors.greenAccent[500],
+            },
+            neutral: {
+              dark: colors.grey[700],
+              main: colors.grey[500],
+              light: colors.grey[100],
+            },
+            background: {
+              default: "#fcfcfc",
+            },
+          }),
+    },
+    typography: {
+      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+      fontSize: 12,
+      h1: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 40,
+      },
+      h2: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 32,
+      },
+      h3: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 24,
+      },
+      h4: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 20,
+      },
+      h5: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 16,
+      },
+      h6: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 14,
+      },
+    },
+  };
+};
 
-function App() {
+type ThemeContextTytpe = {
+  theme: Theme;
+  toggleTheme: () => void;
+};
+// context for color mode
+export const ColorModeContext = createContext<ThemeContextTytpe | null>(null);
+
+export const useMode = () => {
   const [mode, setMode] = useState<PaletteMode>("light");
   const colorMode = useMemo(
     () => ({
@@ -145,16 +217,6 @@ function App() {
   );
 
   // Update the theme only if the mode changes
-  const theme = useMemo(() => createTheme(tokens(mode)), [mode]);
-
-  return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <TopBar />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-  );
-}
-
-export default App;
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  return [theme, colorMode];
+};
