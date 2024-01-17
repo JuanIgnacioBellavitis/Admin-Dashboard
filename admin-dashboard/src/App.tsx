@@ -1,11 +1,26 @@
 import { createContext, useMemo, useState } from "react";
 import { TopBar } from "./pages/global/top-bar";
+import { LeftSidebar } from "./pages/global/sidebar";
+import { Dashboard } from "./pages/dashboard/dashboard";
+
+import { Team } from "./pages/team/team";
+import { Contacts } from "./pages/contacts/contacts";
+import { Invoices } from "./pages/invoices/invoices";
+import { Form } from "./pages/form/form";
+import { Bar } from "./pages/bar/bar";
+import { Pie } from "./pages/pie/pie";
+import { FAQ } from "./pages/faq/faq";
+import { Geography } from "./pages/geography/geography";
+import { Calendar } from "./pages/calendar/calendar";
+import { Line } from "./pages/line/line";
+
 import {
   CssBaseline,
   PaletteMode,
   ThemeProvider,
   createTheme,
 } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
 
 export const tokens = (mode: PaletteMode) => ({
   palette: {
@@ -27,7 +42,7 @@ export const tokens = (mode: PaletteMode) => ({
             100: "#d0d1d5",
             200: "#a1a4ab",
             300: "#727681",
-            400: "#434957",
+            400: "#1F2A40",
             500: "#141b2d",
             600: "#101624",
             700: "#0c101b",
@@ -86,7 +101,7 @@ export const tokens = (mode: PaletteMode) => ({
             300: "#0c101b",
             400: "#f2f0f0",
             500: "#141b2d",
-            600: "#434957",
+            600: "#1F2A40",
             700: "#727681",
             800: "#a1a4ab",
             900: "#d0d1d5",
@@ -128,6 +143,78 @@ export const tokens = (mode: PaletteMode) => ({
   },
 });
 
+export const themeSettings = (mode: PaletteMode) => {
+  const colors = tokens(mode);
+  return {
+    palette: {
+      mode: mode,
+      ...(mode === "dark"
+        ? {
+            // palette values for dark mode
+            primary: {
+              main: colors.palette.primary[500],
+            },
+            secondary: {
+              main: colors.palette.greenAccent[500],
+            },
+            neutral: {
+              dark: colors.palette.grey[700],
+              main: colors.palette.grey[500],
+              light: colors.palette.grey[100],
+            },
+            background: {
+              default: colors.palette.primary[500],
+            },
+          }
+        : {
+            // palette values for light mode
+            primary: {
+              main: colors.palette.primary[100],
+            },
+            secondary: {
+              main: colors.palette.greenAccent[500],
+            },
+            neutral: {
+              dark: colors.palette.grey[700],
+              main: colors.palette.grey[500],
+              light: colors.palette.grey[100],
+            },
+            background: {
+              default: "#fcfcfc",
+            },
+          }),
+    },
+    typography: {
+      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+      fontSize: 12,
+      h1: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 40,
+      },
+      h2: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 32,
+      },
+      h3: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 24,
+      },
+      h4: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 20,
+      },
+      h5: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 16,
+      },
+      h6: {
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 14,
+      },
+    },
+  };
+};
+
 export const ColorModeContext = createContext<any | null>(null);
 
 function App() {
@@ -145,13 +232,31 @@ function App() {
   );
 
   // Update the theme only if the mode changes
-  const theme = useMemo(() => createTheme(tokens(mode)), [mode]);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <TopBar />
+        <div className="app">
+          <LeftSidebar />
+          <main className="content">
+            <TopBar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/form" element={<Form />} />
+              <Route path="/bar" element={<Bar />} />
+              <Route path="/pie" element={<Pie />} />
+              <Route path="/line" element={<Line />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/geography" element={<Geography />} />
+              <Route path="/calendar" element={<Calendar />} />
+            </Routes>
+          </main>
+        </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
