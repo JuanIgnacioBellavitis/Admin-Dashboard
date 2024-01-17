@@ -29,40 +29,25 @@ export function LeftSidebar() {
   const [selected, setSelected] = useState("Dashboard");
 
   return (
-    <Box
-      sx={{
-        "& .pro-sidebar-inner": {
-          background: `${colors.palette.primary[400]} !important`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
-        },
-      }}
-    >
+    <Box>
       <Sidebar
         collapsed={isCollapsed}
-        backgroundColor={`${colors.palette.primary[400]}`}
+        backgroundColor={`${colors.palette.primary[400]} !important`}
+        style={{
+          height: "100%",
+          background: "transparent",
+          border: `1px solid ${colors.palette.primary[400]}`,
+        }}
       >
         <Menu
           rootStyles={{
             ["." + menuClasses.button]: {
-              backgroundColor: "transparent",
-
               "&:hover": {
-                backgroundColor: "#868dfb",
-                color: "#fff",
+                backgroundColor: `${colors.palette.primary[400]} !important`,
+                color: "#868dfb !important",
               },
               "&:active": {
-                backgroundColor: "#6870fa",
+                color: "#6870fa !important",
               },
             },
           }}
@@ -70,7 +55,10 @@ export function LeftSidebar() {
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlined /> : undefined}
-            style={{ margin: "10px 0 20px 0", color: colors.palette.grey[100] }}
+            style={{
+              margin: "10px 0 20px 0",
+              color: colors.palette.grey[100],
+            }}
           >
             {!isCollapsed && (
               <Box
@@ -79,7 +67,7 @@ export function LeftSidebar() {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h5" color={colors.palette.grey[100]}>
+                <Typography variant="h3" color={colors.palette.grey[100]}>
                   ADMINS
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -107,7 +95,7 @@ export function LeftSidebar() {
               </Box>
               <Box textAlign={"center"}>
                 <Typography
-                  variant="h2"
+                  variant="h3"
                   color={colors.palette.grey[100]}
                   fontWeight={"bold"}
                   sx={{ m: "10px 0 0 0" }}
@@ -115,7 +103,7 @@ export function LeftSidebar() {
                   Juan Ignacio Bellavitis
                 </Typography>
                 <Typography
-                  variant="h6"
+                  variant="h5"
                   color={colors.palette.greenAccent[500]}
                 >
                   ADMIN
@@ -133,6 +121,13 @@ export function LeftSidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+            <Typography
+              variant="h6"
+              color={colors.palette.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Data
+            </Typography>
             <SideBarMenuItem
               title="Manage Team"
               to="/team"
@@ -154,6 +149,13 @@ export function LeftSidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+            <Typography
+              variant="h6"
+              color={colors.palette.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Pages
+            </Typography>
             <SideBarMenuItem
               title="Profile Form"
               to="/form"
@@ -175,6 +177,13 @@ export function LeftSidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+            <Typography
+              variant="h6"
+              color={colors.palette.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Charts
+            </Typography>
             <SideBarMenuItem
               title="Bar Chart"
               to="/bar"
