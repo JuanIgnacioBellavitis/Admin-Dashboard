@@ -1,6 +1,6 @@
-import { Typography, useTheme } from "@mui/material";
+import { Typography, useTheme, Link } from "@mui/material";
 import { MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { tokens } from "../../App";
 
 interface ItemProps {
@@ -20,7 +20,6 @@ export function SideBarMenuItem({
 }: ItemProps) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   return (
     <MenuItem
       active={selected === title}
@@ -28,8 +27,18 @@ export function SideBarMenuItem({
       onClick={() => setSelected(title)}
       icon={icon}
     >
-      <Typography>{title}</Typography>
-      <Link to={to} />
+      <Link
+        component={NavLink}
+        to={to}
+        style={{
+          color: colors.palette.grey[100],
+          textDecoration: "none", // Remove underline by default
+          transition: "color 0.3s", // Add a smooth transition effect
+        }}
+        type="text"
+      >
+        <Typography>{title}</Typography>
+      </Link>
     </MenuItem>
   );
 }

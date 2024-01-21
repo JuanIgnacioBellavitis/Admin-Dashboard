@@ -1,3 +1,16 @@
+import { Box } from "@mui/material";
+import { Header } from "../../components/header/header";
+
 export function Dashboard() {
-  return <div>dashboard</div>;
+  return (
+    <Box m={"20px"}>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+      </Box>
+    </Box>
+  );
 }
