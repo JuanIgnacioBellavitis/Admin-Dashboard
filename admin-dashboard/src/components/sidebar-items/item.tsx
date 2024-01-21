@@ -37,7 +37,7 @@ export function SideBarMenuItem({
         }}
         type="text"
       >
-        <Typography>{title}</Typography>
+        {title}
       </Link>
     </MenuItem>
   );

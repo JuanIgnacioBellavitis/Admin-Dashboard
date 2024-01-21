@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Sidebar, Menu, MenuItem, menuClasses } from "react-pro-sidebar";
 
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-import { ColorModeContext, tokens } from "../../App";
+import { tokens } from "../../App";
 import {
   HomeOutlined,
   PeopleOutlined,
