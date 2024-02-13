@@ -1,5 +1,22 @@
-import React from "react";
+import { Box, useTheme } from "@mui/material";
+import { Header } from "../../components/header/header";
+import { GeographyChartComponent } from "../../components/charts/mapchart/geographyChart";
+import { tokens } from "../../App";
 
 export function Geography() {
-  return <div>Geography</div>;
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  return (
+    <Box m="20px">
+      <Header title="Geography Chart" subtitle="Simple Geography Chart" />
+      <Box
+        height={"75vh"}
+        border={`1px solid ${colors.palette.grey[100]}`}
+        borderRadius={"4px"}
+      >
+        <GeographyChartComponent />
+      </Box>
+    </Box>
+  );
 }
