@@ -1,4 +1,5 @@
 The Admin Dashboard is a modern and responsive web application developed with React and TypeScript, designed to provide an intuitive and efficient interface for data and task management. 
+
 https://github.com/JuanIgnacioBellavitis/Admin-Dashboard/assets/72817381/3d1ff41e-f5be-4a40-ba2c-e93cb33303d4
 
 The application features the following key elements:
